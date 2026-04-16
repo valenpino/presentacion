@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guías de Presentación — Seguridad y Bienestar Digital</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --negro: #111111; --amarillo: #F5C500; --blanco: #F5F0E8;
+    --gris: #252525; --gris2: #333; --texto: #d8d3cb;
+    --muted: #777; --coral: #E8593C; --azul: #3B8BD4; --verde: #27ae60;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--negro); color: var(--texto); font-size: 14px; line-height: 1.65; }
+
+  .site-header { border-bottom: 3px solid var(--amarillo); padding: 16px 24px 12px; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .site-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--amarillo); letter-spacing: 1px; }
+  .site-header span { font-size: 12px; color: var(--muted); }
+
+  .nav-tabs { display: flex; gap: 3px; padding: 10px 16px 0; overflow-x: auto; border-bottom: 1px solid var(--gris2); scrollbar-width: none; }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { background: transparent; border: 1px solid var(--gris2); border-bottom: none; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; padding: 7px 13px; cursor: pointer; border-radius: 4px 4px 0 0; white-space: nowrap; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tab-btn:hover { color: var(--texto); }
+  .tab-btn.active { background: var(--gris); color: var(--amarillo); border-color: var(--amarillo); border-bottom-color: var(--gris); }
+
+  .tab-content { display: none; padding: 24px 24px 48px; max-width: 820px; }
+  .tab-content.active { display: block; }
+
+  .grupo-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+  .grupo-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--amarillo); line-height: 1; min-width: 48px; }
+  .grupo-info h2 { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--blanco); letter-spacing: 1px; line-height: 1.1; }
+  .grupo-info .sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 9px; border-radius: 20px; margin-top: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .b-disp { background: rgba(232,89,60,0.12); color: #f0876a; border: 1px solid rgba(232,89,60,0.25); }
+  .b-pers { background: rgba(245,197,0,0.1); color: #f5c500; border: 1px solid rgba(245,197,0,0.22); }
+  .b-info { background: rgba(59,139,212,0.12); color: #6bb3f0; border: 1px solid rgba(59,139,212,0.25); }
+
+  /* Bloque de recursos */
+  .recursos-bloque { background: var(--gris); border: 1px solid var(--gris2); border-radius: 6px; padding: 11px 14px; margin-bottom: 18px; }
+  .recursos-bloque .rec-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 7px; }
+  .recursos-bloque a { color: #6bb3f0; font-size: 13px; display: block; margin-bottom: 4px; text-decoration: none; }
+  .recursos-bloque a:last-child { margin: 0; }
+  .recursos-bloque a:hover { text-decoration: underline; }
+
+  .sec { margin-bottom: 18px; border-left: 2px solid var(--gris2); padding-left: 14px; }
+  .sec.hl { border-left-color: var(--amarillo); }
+  .sec.din { border-left-color: var(--coral); }
+  .sec.deb { border-left-color: var(--azul); }
+  .sec.cons { border-left-color: var(--verde); }
+
+  .sec-hd { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .sec-n { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--amarillo); min-width: 18px; }
+  .sec.din .sec-n { color: var(--coral); }
+  .sec.deb .sec-n { color: var(--azul); }
+  .sec.cons .sec-n { color: var(--verde); }
+  .sec-t { font-size: 12px; font-weight: 600; color: var(--blanco); text-transform: uppercase; letter-spacing: 0.8px; }
+
+  .sec p { margin-bottom: 7px; }
+  .sec ul { padding-left: 16px; }
+  .sec ul li { margin-bottom: 3px; }
+  .sec strong { color: var(--blanco); }
+
+  /* Definición */
+  .def-box { background: var(--gris); border-left: 3px solid var(--amarillo); border-radius: 0 6px 6px 0; padding: 11px 14px; margin-bottom: 8px; font-size: 14px; }
+
+  /* Tarea */
+  .tarea-box { background: rgba(245,197,0,0.04); border: 1px dashed rgba(245,197,0,0.25); border-radius: 6px; padding: 11px 14px; margin-top: 8px; }
+  .tarea-box .tarea-label { font-size: 10px; font-weight: 700; color: var(--amarillo); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .tarea-box p { font-size: 13px; color: var(--muted); margin: 0 0 5px; }
+  .tarea-box p:last-child { margin: 0; }
+  .tarea-box strong { color: var(--amarillo); }
+  .tarea-box em { color: var(--blanco); font-style: normal; }
+
+  /* Fichas malware */
+  .fichas { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 8px; }
+  .ficha { background: var(--gris); border: 1px solid var(--gris2); border-radius: 5px; padding: 9px 11px; }
+  .ficha-t { font-family: 'Bebas Neue', sans-serif; font-size: 15px; color: var(--amarillo); margin-bottom: 2px; }
+  .ficha p { font-size: 12px; color: var(--muted); margin: 0; }
+
+  /* Hoja dinámica malware */
+  .hoja-box { background: rgba(232,89,60,0.06); border: 1px solid rgba(232,89,60,0.2); border-radius: 6px; padding: 13px 15px; margin-top: 8px; }
+  .hoja-box .hoja-label { font-size: 10px; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .hoja-caso { border-bottom: 1px solid rgba(232,89,60,0.15); padding: 8px 0; display: flex; gap: 10px; align-items: flex-start; }
+  .hoja-caso:last-child { border-bottom: none; padding-bottom: 0; }
+  .hoja-n { font-family: 'Bebas Neue', sans-serif; font-size: 16px; color: var(--coral); min-width: 16px; }
+  .hoja-txt { font-size: 13px; }
+  .hoja-blank { display: inline-block; background: rgba(245,197,0,0.08); border: 1px dashed rgba(245,197,0,0.3); border-radius: 3px; padding: 1px 28px; margin-left: 6px; font-size: 11px; color: var(--amarillo); }
+
+  /* Consecuencias */
+  .cons-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; margin-top: 8px; }
+  .cons-item { background: rgba(39,174,96,0.05); border: 1px solid rgba(39,174,96,0.15); border-radius: 5px; padding: 9px 11px; min-height: 72px; }
+  .cons-item.ejemplo { border-style: solid; border-color: rgba(39,174,96,0.35); }
+  .cons-cat { font-size: 10px; font-weight: 700; color: var(--verde); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 5px; }
+  .cons-item p { font-size: 12px; color: var(--muted); margin: 0; }
+  .cons-item.vacio { border-style: dashed; border-color: rgba(39,174,96,0.15); }
+
+  /* Dinámica */
+  .din-box { background: rgba(232,89,60,0.06); border: 1px solid rgba(232,89,60,0.2); border-radius: 6px; padding: 13px 15px; margin-top: 8px; }
+  .paso { display: flex; gap: 9px; margin-bottom: 7px; align-items: flex-start; }
+  .paso:last-child { margin: 0; }
+  .paso-n { font-family: 'Bebas Neue', sans-serif; font-size: 17px; color: var(--coral); min-width: 16px; line-height: 1.3; }
+
+  /* Stats */
+  .stats-box { background: rgba(245,197,0,0.05); border: 1px solid rgba(245,197,0,0.2); border-radius: 6px; padding: 13px 15px; margin-top: 8px; }
+  .stat-row { display: flex; gap: 10px; align-items: flex-start; }
+  .stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--amarillo); min-width: 48px; }
+  .stat-txt { font-size: 13px; }
+
+  /* Debate */
+  .deb-opciones { display: flex; flex-direction: column; gap: 7px; margin-top: 9px; }
+  .opcion { background: rgba(59,139,212,0.07); border: 1px solid rgba(59,139,212,0.18); border-radius: 5px; padding: 9px 13px; }
+  .op-label { font-size: 10px; font-weight: 700; color: #6bb3f0; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 3px; }
+  .opcion-propia { background: rgba(245,197,0,0.04); border: 1px dashed rgba(245,197,0,0.25); border-radius: 5px; padding: 9px 13px; font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .opcion-propia strong { color: var(--amarillo); }
+
+  .recurso-link { display: block; width: fit-content; background: rgba(59,139,212,0.08); border: 1px solid rgba(59,139,212,0.25); border-radius: 4px; padding: 5px 11px; color: #6bb3f0; font-size: 12px; text-decoration: none; margin-top: 7px; }
+  .aviso { font-size: 12px; color: var(--coral); margin-top: 7px; }
+  .nota { font-size: 12px; color: var(--muted); margin-top: 7px; }
+  .nota-docente { background: rgba(245,197,0,0.05); border: 1px solid rgba(245,197,0,0.18); border-radius: 5px; padding: 9px 13px; font-size: 12px; color: var(--muted); margin-top: 14px; }
+  .nota-docente strong { color: var(--amarillo); }
+  .caso-box { background: var(--gris); border: 1px solid var(--gris2); border-radius: 6px; padding: 12px 14px; margin-top: 8px; }
+  .caso-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+  hr.div { border: none; border-top: 1px solid var(--gris2); margin: 20px 0; }
+
+  @media (max-width:600px) { .fichas, .cons-grid { grid-template-columns: 1fr; } .tab-btn { font-size: 10px; padding: 5px 9px; } }
+  @media print { body { background: white; color: black; } .nav-tabs { display: none; } .tab-content { display: block !important; page-break-after: always; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>Guías de Presentación</h1>
+  <span>Seguridad y Bienestar Digital · Digitalización 4.º ESO · IES Son Pacs</span>
+</header>
+
+<nav class="nav-tabs">
+  <button class="tab-btn active" onclick="show(0)">01 · Malware</button>
+  <button class="tab-btn" onclick="show(1)">02 · Ransomware</button>
+  <button class="tab-btn" onclick="show(2)">03 · Phishing</button>
+  <button class="tab-btn" onclick="show(3)">04 · Grooming</button>
+  <button class="tab-btn" onclick="show(4)">05 · Sexting</button>
+  <button class="tab-btn" onclick="show(5)">06 · Ing. Social</button>
+  <button class="tab-btn" onclick="show(6)">07 · Deepfake</button>
+  <button class="tab-btn" onclick="show(7)">08 · Privacidad</button>
+</nav>
+
+<div style="background:rgba(245,197,0,0.05);border:1px solid rgba(245,197,0,0.2);border-radius:6px;padding:12px 16px;margin:14px 24px 0;max-width:820px;">
+  <div style="font-size:10px;font-weight:700;color:var(--amarillo);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Cómo usar esta guía</div>
+  <p style="font-size:13px;color:var(--muted);margin:0;">Leed los recursos al inicio de cada grupo antes de empezar. La definición es el punto de partida — reescribidla con vuestras palabras y añadid una comparación propia. El resto lo construís vosotros investigando. <strong style="color:var(--blanco)">No vale copiar y pegar.</strong></p>
+</div>
+
+<!-- ===================== 01 MALWARE ===================== -->
+<div class="tab-content active" id="t0">
+  <div class="grupo-header">
+    <div class="grupo-num">01</div>
+    <div class="grupo-info">
+      <h2>Malware</h2>
+      <div class="sub">Software malicioso que ataca dispositivos</div>
+      <span class="badge b-disp">Amenaza a dispositivos</span>
+    </div>
+  </div>
+
+  <div class="recursos-bloque">
+    <div class="rec-label">Recursos para preparar la presentación</div>
+    <a href="https://www.incibe.es/ciudadania/tematicas/virus-amenazas" target="_blank">↗ incibe.es — virus, amenazas y tipos de malware</a>
+    <a href="https://www.incibe.es/ciudadania/tematicas/configuraciones-dispositivos/antivirus" target="_blank">↗ incibe.es — antivirus y protección de dispositivos</a>
+  </div>
+
+  <div class="sec hl">
+    <div class="sec-hd"><span class="sec-n">1</span><span class="sec-t">¿Qué es exactamente?</span></div>
+    <div class="def-box">
+      <strong>Malware</strong> (malicious software) es cualquier programa creado para dañar, espiar o tomar el control de un dispositivo sin permiso del usuario. Es un término paraguas que incluye muchos subtipos según lo que hacen.
+    </div>
+    <div class="fichas">
+      <div class="ficha"><div class="ficha-t">Virus</div><p>Se replica y contagia otros archivos</p></div>
+      <div class="ficha"><div class="ficha-t">Troyano</div><p>Se disfraza de programa legítimo</p></div>
+      <div class="ficha"><div class="ficha-t">Spyware</div><p>Espía y roba información en silencio</p></div>
+      <div class="ficha"><div class="ficha-t">Adware</div><p>Publicidad invasiva constante</p></div>
+      <div class="ficha"><div class="ficha-t">Keylogger</div><p>Registra todo lo que tecleas</p></div>
+      <div class="ficha"><div class="ficha-t">Ransomware</div><p>Cifra archivos y pide rescate → grupo 02</p></div>
+    </div>
+    <div class="tarea-box">
+      <div class="tarea-label">Vuestra tarea</div>
+      <p>Explicad qué es con vuestras palabras, como si se lo contarais a alguien que no sabe nada de tecnología. Preparad también una ficha breve por cada tipo.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">2</span><span class="sec-t">¿Cómo detectarlo?</span></div>
+    <p class="nota">Buscad la información en el enlace de arriba. Haced una lista de señales de alerta en frases cortas — ordenadlas de más a menos obvia.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">3</span><span class="sec-t">¿Cómo protegerse?</span></div>
+    <p class="nota">Buscad la información en el enlace de arriba. Lista de entre 5 y 10 reglas. Frase corta cada una.</p>
+  </div>
+
+  <div class="sec cons">
+    <div class="sec-hd"><span class="sec-n">!</span><span class="sec-t">Consecuencias</span></div>
+    <p class="nota" style="margin-bottom:8px;">Buscad en el enlace de arriba y rellenad los tres recuadros.</p>
+    <div class="cons-grid">
+      <div class="cons-item ejemplo">
+        <div class="cons-cat">Personal — ejemplo</div>
+        <p>Robo de contraseñas y acceso a cuentas bancarias sin saberlo.</p>
+      </div>
+      <div class="cons-item vacio"><div class="cons-cat">Económica</div></div>
+      <div class="cons-item vacio"><div class="cons-cat">Legal</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">4</span><span class="sec-t">Un caso real o noticia reciente</span></div>
+    <p>El ataque <strong>NotPetya (2017)</strong> paralizó empresas en 65 países en pocas horas, con pérdidas de más de 10.000 millones de dólares. O buscad una noticia más reciente en prensa española.</p>
+  </div>
+
+  <hr class="div">
+
+  <div class="sec din">
+    <div class="sec-hd"><span class="sec-n">★</span><span class="sec-t">Dinámica: El museo del malware</span></div>
+    <p>Proyectáis casos uno a uno sin decir qué tipo es. La clase vota. Vosotros revelad y explicáis. Al final: <em>"¿Cuál os parece más peligroso?"</em></p>
+    <div class="hoja-box">
+      <div class="hoja-label">Ejemplo de hoja para la clase — preparad 4 casos como estos</div>
+      <div class="hoja-caso">
+        <span class="hoja-n">1</span>
+        <span class="hoja-txt">María descargó una app de fondos de pantalla gratuita. Ahora le aparecen ventanas emergentes con anuncios en todas las webs que visita. ¿Qué tipo de malware es? <span class="hoja-blank">___________</span></span>
+      </div>
+      <div class="hoja-caso">
+        <span class="hoja-n">2</span>
+        <span class="hoja-txt">Pedro instaló un programa para editar fotos. Desde entonces sus contraseñas han sido robadas sin que él hiciera nada raro. ¿Qué tipo? <span class="hoja-blank">___________</span></span>
+      </div>
+      <div class="hoja-caso">
+        <span class="hoja-n">3</span>
+        <span class="hoja-txt">Carlos descargó lo que parecía WhatsApp oficial pero era una copia falsa. Ahora alguien lee todas sus conversaciones. ¿Qué tipo? <span class="hoja-blank">___________</span></span>
+      </div>
+      <div class="hoja-caso">
+        <span class="hoja-n">4</span>
+        <span class="hoja-txt">Sara abrió un adjunto de un correo desconocido. Ese archivo se envió automáticamente a todos sus contactos. ¿Qué tipo? <span class="hoja-blank">___________</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec deb">
+    <div class="sec-hd"><span class="sec-n">?</span><span class="sec-t">Pregunta de debate</span></div>
+    <div class="deb-opciones">
+      <div class="opcion"><div class="op-label">Opción A</div>¿Descargarías una app gratuita muy útil sabiendo que puede tener spyware que lee tus mensajes?</div>
+      <div class="opcion"><div class="op-label">Opción B</div>¿Crees que los fabricantes deberían impedir instalar apps fuera de su tienda oficial aunque eso limite tu libertad?</div>
+      <div class="opcion"><div class="op-label">Opción C</div>Si tu mejor amigo/a te envía un archivo raro sin explicación, ¿lo abres?</div>
+    </div>
+    <div class="opcion-propia"><strong>O cread vuestra propia:</strong> un dilema sin respuesta correcta que cualquiera pueda contestar sin saber del tema.</div>
+  </div>
+</div>
+
+<!-- ===================== 02 RANSOMWARE ===================== -->
+<div class="tab-content" id="t1">
+  <div class="grupo-header">
+    <div class="grupo-num">02</div>
+    <div class="grupo-info">
+      <h2>Ransomware</h2>
+      <div class="sub">El secuestro digital</div>
+      <span class="badge b-disp">Amenaza a dispositivos</span>
+    </div>
+  </div>
+
+  <div class="recursos-bloque">
+    <div class="rec-label">Recursos para preparar la presentación</div>
+    <a href="https://www.incibe.es/empresas/tematicas/ransomware" target="_blank">↗ incibe.es — qué es el ransomware, cómo funciona y cómo protegerse</a>
+  </div>
+
+  <div class="sec hl">
+    <div class="sec-hd"><span class="sec-n">1</span><span class="sec-t">¿Qué es exactamente?</span></div>
+    <div class="def-box">
+      <strong>Ransomware</strong> es un tipo de malware que cifra todos los archivos del dispositivo infectado y exige un pago (rescate) para devolver el acceso. Cifrar significa convertir los archivos en datos ilegibles sin una clave secreta. El pago se pide en criptomonedas para no ser rastreado — y pagarlo no garantiza recuperar nada.
+    </div>
+    <div class="tarea-box">
+      <div class="tarea-label">Vuestra tarea</div>
+      <p>Explicad qué es con vuestras palabras, como si se lo contarais a alguien que no sabe nada de tecnología. Prestad especial atención a explicar qué significa "cifrar" los archivos.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">2</span><span class="sec-t">¿Cómo detectarlo?</span></div>
+    <p class="nota">Buscad la información en el enlace de arriba. Lista de señales de alerta en frases cortas — incluid qué hacer en los primeros segundos.</p>
+    <p class="aviso">⚠ Señal clave: desconecta el dispositivo de internet inmediatamente para que no infecte otros equipos.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">3</span><span class="sec-t">¿Cómo protegerse?</span></div>
+    <p class="nota">Buscad la información en el enlace de arriba. Lista de entre 5 y 10 reglas. Frase corta cada una.</p>
+  </div>
+
+  <div class="sec cons">
+    <div class="sec-hd"><span class="sec-n">!</span><span class="sec-t">Consecuencias</span></div>
+    <p class="nota" style="margin-bottom:8px;">Buscad en el enlace de arriba y rellenad los tres recuadros.</p>
+    <div class="cons-grid">
+      <div class="cons-item ejemplo">
+        <div class="cons-cat">Personal — ejemplo</div>
+        <p>Pérdida permanente de fotos, documentos y trabajos guardados en el dispositivo.</p>
+      </div>
+      <div class="cons-item vacio"><div class="cons-cat">Económica</div></div>
+      <div class="cons-item vacio"><div class="cons-cat">Social</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">4</span><span class="sec-t">Un caso real o noticia reciente</span></div>
+    <p><strong>WannaCry (2017)</strong>: infectó 200.000 ordenadores en 150 países en un fin de semana, paralizando hospitales en Reino Unido. En España: el ataque al <strong>Hospital Universitario de Torrejón (2020)</strong> obligó a derivar pacientes a otros centros durante días.</p>
+  </div>
+
+  <hr class="div">
+
+  <div class="sec din">
+    <div class="sec-hd"><span class="sec-n">★</span><span class="sec-t">Dinámica: El ataque paso a paso</span></div>
+    <p>Narrad el ataque del Hospital de Torrejón como una historia. En cada paso paráis y preguntáis a la clase qué haría. El primer paso ya está escrito como modelo:</p>
+    <div class="din-box">
+      <div class="paso">
+        <span class="paso-n">→</span>
+        <span><strong>Modelo (ya hecho):</strong> "Son las 9 de la mañana. Una enfermera recibe un email del 'Departamento de RRHH' con el asunto 'Actualización de nóminas — documento adjunto'. Tiene prisa. Lo abre." — Paráis. <em>"¿Qué haríais vosotros?"</em></span>
+      </div>
+      <div class="paso"><span class="paso-n">2</span><span>Investigad qué pasó después y construid los pasos siguientes con el mismo formato: situación → pausa → pregunta a la clase.</span></div>
+      <div class="paso"><span class="paso-n">3</span><span>Al llegar al mensaje de rescate: <em>"El hospital no puede acceder a las historias clínicas. Hay pacientes en quirófano. ¿Pagaríais?"</em></span></div>
+    </div>
+  </div>
+
+  <div class="sec deb">
+    <div class="sec-hd"><span class="sec-n">?</span><span class="sec-t">Pregunta de debate</span></div>
+    <div class="deb-opciones">
+      <div class="opcion"><div class="op-label">Opción A</div>Si un ransomware cifra las historias clínicas de un hospital con pacientes en riesgo, ¿debería pagarse el rescate?</div>
+      <div class="opcion"><div class="op-label">Opción B</div>¿Quien paga el rescate es también responsable de que estos ataques continúen?</div>
+      <div class="opcion"><div class="op-label">Opción C</div>¿Debería ser obligatorio por ley tener copias de seguridad en hospitales y empresas públicas?</div>
+    </div>
+    <div class="opcion-propia"><strong>O cread vuestra propia:</strong> un dilema sin respuesta correcta que cualquiera pueda contestar sin saber del tema.</div>
+  </div>
+</div>
+
+<!-- ===================== 03 PHISHING ===================== -->
+<div class="tab-content" id="t2">
+  <div class="grupo-header">
+    <div class="grupo-num">03</div>
+    <div class="grupo-info">
+      <h2>Phishing y smishing</h2>
+      <div class="sub">El arte de hacerse pasar por otro</div>
+      <span class="badge b-disp">Amenaza a dispositivos</span>
+    </div>
+  </div>
+
+  <div class="recursos-bloque">
+    <div class="rec-label">Recursos para preparar la presentación</div>
+    <a href="https://www.incibe.es/ciudadania/tematicas/ingenieria-social-fraudes-online/phishing" target="_blank">↗ incibe.es — qué es el phishing y cómo detectarlo</a>
+    <a href="https://www.incibe.es/ciudadania/tematicas/ingenieria-social-fraudes-online/smishing" target="_blank">↗ incibe.es — qué es el smishing</a>
+  </div>
+
+  <div class="sec hl">
+    <div class="sec-hd"><span class="sec-n">1</span><span class="sec-t">¿Qué es exactamente?</span></div>
+    <div class="def-box">
+      <strong>Phishing</strong> (del inglés <em>fishing</em>, pescar) es engañar a alguien haciéndose pasar por una persona o empresa de confianza para robarle datos o dinero — llega por email. <strong>Smishing</strong> es lo mismo pero por SMS. <strong>Pharming</strong> es más sofisticado: manipula la dirección web para que aunque escribas bien la URL de tu banco, acabes en una página falsa idéntica.
+    </div>
+    <div class="tarea-box">
+      <div class="tarea-label">Vuestra tarea</div>
+      <p>Explicad qué es con vuestras palabras, como si se lo contarais a alguien que no sabe nada de tecnología. Explicad también la diferencia entre phishing, smishing y pharming.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">2</span><span class="sec-t">¿Cómo detectarlo?</span></div>
+    <p class="nota">Buscad la información en los enlaces de arriba. Lista de señales de alerta en frases cortas — ordenadlas de más fácil a más difícil de detectar.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">3</span><span class="sec-t">¿Cómo protegerse?</span></div>
+    <p class="nota">Buscad la información en los enlaces de arriba. Lista de entre 5 y 10 reglas. Frase corta cada una.</p>
+  </div>
+
+  <div class="sec cons">
+    <div class="sec-hd"><span class="sec-n">!</span><span class="sec-t">Consecuencias</span></div>
+    <p class="nota" style="margin-bottom:8px;">Buscad en los enlaces de arriba y rellenad los tres recuadros.</p>
+    <div class="cons-grid">
+      <div class="cons-item ejemplo">
+        <div class="cons-cat">Personal — ejemplo</div>
+        <p>Cuentas bancarias vaciadas o identidad suplantada para pedir créditos a tu nombre.</p>
+      </div>
+      <div class="cons-item vacio"><div class="cons-cat">Emocional</div></div>
+      <div class="cons-item vacio"><div class="cons-cat">Legal</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">4</span><span class="sec-t">Un caso real o noticia reciente</span></div>
+    <p>Buscad campañas recientes suplantando a la <strong>Agencia Tributaria</strong> o a entidades bancarias en España — especialmente en época de la declaración de la renta. Son muy frecuentes y fáciles de encontrar en prensa.</p>
+  </div>
+
+  <hr class="div">
+
+  <div class="sec din">
+    <div class="sec-hd"><span class="sec-n">★</span><span class="sec-t">Dinámica: ¿Real o fake?</span></div>
+    <div class="din-box">
+      <div class="paso"><span class="paso-n">1</span><span>Preparad <strong>5 capturas</strong> de emails o SMS: mezcla de legítimos y phishing. Buscad ejemplos reales en Google.</span></div>
+      <div class="paso"><span class="paso-n">2</span><span>Proyectad cada uno. La clase vota: <strong>¿legítimo o phishing?</strong></span></div>
+      <div class="paso"><span class="paso-n">3</span><span>Después de cada votación, señalad exactamente qué indicadores lo delatan — o por qué era tan convincente.</span></div>
+    </div>
+  </div>
+
+  <div class="sec deb">
+    <div class="sec-hd"><span class="sec-n">?</span><span class="sec-t">Pregunta de debate</span></div>
+    <div class="deb-opciones">
+      <div class="opcion"><div class="op-label">Opción A</div>Si alguien cae en un phishing y le roban dinero, ¿quién debería asumir la pérdida — la víctima o el banco?</div>
+      <div class="opcion"><div class="op-label">Opción B</div>¿Crees que los bancos deberían verificar más cada operación aunque eso las haga más lentas?</div>
+      <div class="opcion"><div class="op-label">Opción C</div>¿A partir de qué edad crees que alguien debería saber detectar un phishing?</div>
+    </div>
+    <div class="opcion-propia"><strong>O cread vuestra propia:</strong> un dilema sin respuesta correcta que cualquiera pueda contestar sin saber del tema.</div>
+  </div>
+</div>
+
+<!-- ===================== 04 GROOMING ===================== -->
+<div class="tab-content" id="t3">
+  <div class="grupo-header">
+    <div class="grupo-num">04</div>
+    <div class="grupo-info">
+      <h2>Grooming</h2>
+      <div class="sub">Cuando el peligro se hace pasar por amigo</div>
+      <span class="badge b-pers">Amenaza a personas</span>
+    </div>
+  </div>
+
+  <div class="recursos-bloque">
+    <div class="rec-label">Recursos para preparar la presentación</div>
+    <a href="https://www.incibe.es/menores/tematicas/grooming" target="_blank">↗ incibe.es — qué es el grooming, fases y cómo protegerse</a>
+    <a href="https://www.youtube.com/watch?v=UPVU0XK6zq0" target="_blank">↗ Vídeo Orange — ¿Se esconde tu pareja ideal en internet?</a>
+  </div>
+
+  <div class="sec hl">
+    <div class="sec-hd"><span class="sec-n">1</span><span class="sec-t">¿Qué es exactamente?</span></div>
+    <div class="def-box">
+      <strong>Grooming</strong> es el proceso por el que un adulto se gana la confianza de un menor a través de internet — haciéndose pasar normalmente por alguien de su edad — con el objetivo de obtener imágenes de contenido sexual o quedar en persona. No ocurre de golpe: es lento y calculado. Es un <strong>delito en España</strong> (artículo 183 ter del Código Penal).
+    </div>
+    <div class="tarea-box">
+      <div class="tarea-label">Vuestra tarea</div>
+      <p>Explicad qué es con vuestras palabras, como si se lo contarais a alguien que no sabe nada de tecnología. Lo más importante es transmitir por qué es tan difícil detectarlo mientras ocurre.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">2</span><span class="sec-t">¿Cómo funciona? Las 5 fases</span></div>
+    <ul>
+      <li><strong>Contacto:</strong> se acerca en redes, juegos online o chats. Puede usar perfil falso.</li>
+      <li><strong>Construcción de confianza:</strong> escucha, halaga, regala (códigos de juegos, dinero virtual).</li>
+      <li><strong>Aislamiento:</strong> intenta alejar al menor de familia y amigos. "Ellos no te entienden, yo sí."</li>
+      <li><strong>Manipulación:</strong> introduce temas sexuales poco a poco, pide fotos o vídeos.</li>
+      <li><strong>Trampa:</strong> usa lo obtenido para amenazar o chantajear.</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">3</span><span class="sec-t">¿Cómo detectarlo?</span></div>
+    <p class="nota">Buscad la información en el enlace de arriba. Lista de señales de alerta en frases cortas — destacad cuál consideráis la más importante.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">4</span><span class="sec-t">¿Cómo protegerse?</span></div>
+    <p class="nota">Buscad la información en el enlace de arriba. Lista de entre 5 y 10 reglas. Frase corta cada una.</p>
+  </div>
+
+  <div class="sec cons">
+    <div class="sec-hd"><span class="sec-n">!</span><span class="sec-t">Consecuencias</span></div>
+    <p class="nota" style="margin-bottom:8px;">Buscad en el enlace de arriba y rellenad los tres recuadros.</p>
+    <div class="cons-grid">
+      <div class="cons-item ejemplo">
+        <div class="cons-cat">Emocional — ejemplo</div>
+        <p>Trauma, ansiedad y vergüenza. Muchas víctimas tardan años en contarlo a alguien.</p>
+      </div>
+      <div class="cons-item vacio"><div class="cons-cat">Legal</div></div>
+      <div class="cons-item vacio"><div class="cons-cat">Social</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">5</span><span class="sec-t">Un caso real o noticia reciente</span></div>
+    <p>Buscad un caso reciente de grooming en prensa española. El <strong>INCIBE</strong> y la <strong>Policía Nacional</strong> publican regularmente operaciones contra este delito. También podéis referenciar el experimento del vídeo de Orange como caso ilustrativo.</p>
+  </div>
+
+  <hr class="div">
+
+  <div class="sec din">
+    <div class="sec-hd"><span class="sec-n">★</span><span class="sec-t">Dinámica: Explicar las fases y proyectar el vídeo</span></div>
+    <div class="din-box">
+      <div class="paso"><span class="paso-n">1</span><span>Primero explicáis las <strong>5 fases del grooming</strong> a la clase.</span></div>
+      <div class="paso"><span class="paso-n">2</span><span>Luego proyectáis el vídeo. La clase tiene que <strong>identificar en qué momento aparece cada fase</strong>.</span></div>
+      <div class="paso"><span class="paso-n">3</span><span>Después: <em>"¿En qué momento exacto empezó la trampa? ¿Cuándo debería haber parado ella?"</em></span></div>
+    </div>
+  </div>
+
+  <div class="sec deb">
+    <div class="sec-hd"><span class="sec-n">?</span><span class="sec-t">Pregunta de debate</span></div>
+    <div class="deb-opciones">
+      <div class="opcion"><div class="op-label">Opción A</div>¿A partir de qué edad crees que un menor debería poder tener redes sociales sin supervisión de sus padres?</div>
+      <div class="opcion"><div class="op-label">Opción B</div>Si descubres que un amigo/a está hablando con alguien sospechoso y te pide que no lo cuentes, ¿qué haces?</div>
+      <div class="opcion"><div class="op-label">Opción C</div>¿Crees que Instagram o TikTok hacen suficiente para proteger a los menores?</div>
+    </div>
+    <div class="opcion-propia"><strong>O cread vuestra propia:</strong> un dilema sin respuesta correcta que cualquiera pueda contestar sin saber del tema.</div>
+  </div>
+</div>
+
+<!-- ===================== 05 SEXTING ===================== -->
+<div class="tab-content" id="t4">
+  <div class="grupo-header">
+    <div class="grupo-num">05</div>
+    <div class="grupo-info">
+      <h2>Sexting y sextorsión</h2>
+      <div class="sub">Cuando una imagen se convierte en una trampa</div>
+      <span class="badge b-pers">Amenaza a personas</span>
+    </div>
+  </div>
+
+  <div class="recursos-bloque">
+    <div class="rec-label">Recursos para preparar la presentación</div>
+    <a href="https://www.incibe.es/menores/tematicas/sexting" target="_blank">↗ incibe.es — sexting, riesgos y cómo reaccionar</a>
+    <a href="https://www.savethechildren.es" target="_blank">↗ savethechildren.es — estadísticas y recursos sobre sexting en adolescentes</a>
+  </div>
+
+  <div class="sec hl">
+    <div class="sec-hd"><span class="sec-n">1</span><span class="sec-t">¿Qué es exactamente?</span></div>
+    <div class="def-box">
+      <strong>Sexting</strong> es el envío voluntario de imágenes o vídeos de contenido íntimo a través del móvil u otros dispositivos. En menores de edad es ilegal siempre, incluso entre dos menores. <strong>Sextorsión</strong> es cuando alguien usa esas imágenes para amenazar: "Si no me mandas más fotos o no me pagas, las publico." El control cambia de manos en el momento en que la imagen se envía — y no vuelve.
+    </div>
+    <div class="tarea-box">
+      <div class="tarea-label">Vuestra tarea</div>
+      <p>Explicad qué es con vuestras palabras, como si se lo contarais a alguien que no sabe nada de tecnología. Explicad también la diferencia entre sexting y sextorsión.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">2</span><span class="sec-t">¿Cómo detectar la manipulación?</span></div>
+    <p class="nota">Buscad la información en el enlace de arriba. Lista de frases o señales de manipulación en frases cortas — destacad cuál os parece más difícil de resistir.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">3</span><span class="sec-t">¿Cómo protegerse?</span></div>
+    <p class="nota">Buscad la información en el enlace de arriba. Lista de entre 5 y 10 reglas. Frase corta cada una.</p>
+  </div>
+
+  <div class="sec cons">
+    <div class="sec-hd"><span class="sec-n">!</span><span class="sec-t">Consecuencias</span></div>
+    <p class="nota" style="margin-bottom:8px;">Buscad en el enlace de arriba y rellenad los tres recuadros.</p>
+    <div class="cons-grid">
+      <div class="cons-item ejemplo">
+        <div class="cons-cat">Emocional — ejemplo</div>
+        <p>Ansiedad, depresión y aislamiento. Hay víctimas que dejan de ir al instituto por miedo.</p>
+      </div>
+      <div class="cons-item vacio"><div class="cons-cat">Social</div></div>
+      <div class="cons-item vacio"><div class="cons-cat">Legal</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">4</span><span class="sec-t">Un caso real o noticia reciente</span></div>
+    <p>Buscad una noticia reciente sobre sextorsión en adolescentes en España. El caso de <strong>Amanda Todd</strong> (Canadá, 2012) tuvo repercusión mundial y está muy documentado. También podéis buscar casos más recientes en el INCIBE o en prensa española.</p>
+  </div>
+
+  <hr class="div">
+
+  <div class="sec din">
+    <div class="sec-hd"><span class="sec-n">★</span><span class="sec-t">Dinámica: Los datos hablan</span></div>
+    <p>Proyectad este dato de partida. Después paráis y preguntáis: <em>"¿Os sorprende? ¿Por qué creéis que pasa esto?"</em></p>
+    <div class="stats-box">
+      <div class="stat-row">
+        <span class="stat-n">28%</span>
+        <span class="stat-txt">de adolescentes españoles de 12 a 16 años han recibido presión para enviar imágenes de contenido sexual. <em>(Save the Children, 2023)</em></span>
+      </div>
+    </div>
+    <p class="nota" style="margin-top:10px;">Buscad más datos actualizados antes de presentar — pueden haber cambiado.</p>
+  </div>
+
+  <div class="sec deb">
+    <div class="sec-hd"><span class="sec-n">?</span><span class="sec-t">Pregunta de debate</span></div>
+    <div class="deb-opciones">
+      <div class="opcion"><div class="op-label">Opción A</div>¿Tiene alguna responsabilidad la víctima de sextorsión, o toda la culpa es del agresor?</div>
+      <div class="opcion"><div class="op-label">Opción B</div>Si un amigo/a te confiesa que está siendo sextorsionado/a y te pide que no lo cuentes, ¿qué haces?</div>
+      <div class="opcion"><div class="op-label">Opción C</div>¿Debería ser delito no solo quien extorsiona sino también quien reenvía las imágenes?</div>
+    </div>
+    <div class="opcion-propia"><strong>O cread vuestra propia:</strong> un dilema sin respuesta correcta que cualquiera pueda contestar sin saber del tema.</div>
+  </div>
+</div>
+
+<!-- ===================== 06 ING SOCIAL ===================== -->
+<div class="tab-content" id="t5">
+  <div class="grupo-header">
+    <div class="grupo-num">06</div>
+    <div class="grupo-info">
+      <h2>Ingeniería social</h2>
+      <div class="sub">Hackear personas, no máquinas</div>
+      <span class="badge b-pers">Amenaza a personas</span>
+    </div>
+  </div>
+
+  <div class="recursos-bloque">
+    <div class="rec-label">Recursos para preparar la presentación</div>
+    <a href="https://www.incibe.es/ciudadania/tematicas/ingenieria-social-fraudes-online" target="_blank">↗ incibe.es — ingeniería social, técnicas y cómo protegerse</a>
+  </div>
+
+  <div class="sec hl">
+    <div class="sec-hd"><span class="sec-n">1</span><span class="sec-t">¿Qué es exactamente?</span></div>
+    <div class="def-box">
+      <strong>Ingeniería social</strong> es la manipulación psicológica para conseguir que una persona haga algo que no debería: revelar contraseñas, transferir dinero, dar acceso a sistemas. No ataca ordenadores — ataca personas. Funciona porque explota comportamientos humanos normales: la confianza en la autoridad, el miedo y las prisas. Es la base de casi todos los demás ataques.
+    </div>
+    <div class="tarea-box">
+      <div class="tarea-label">Vuestra tarea</div>
+      <p>Explicad qué es con vuestras palabras, como si se lo contarais a alguien que no sabe nada de tecnología. Investigad también qué es el <strong>vishing</strong> — ¿en qué se parece al phishing y al smishing? ¿Por qué creéis que lo hemos puesto en este grupo y no en el 03?</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">2</span><span class="sec-t">¿Cómo detectarlo?</span></div>
+    <p class="nota">Buscad la información en el enlace de arriba. Lista de técnicas de manipulación (urgencia, autoridad, miedo…) con un ejemplo cotidiano de cada una.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">3</span><span class="sec-t">¿Cómo protegerse?</span></div>
+    <p class="nota">Buscad la información en el enlace de arriba. Lista de entre 5 y 10 reglas. Frase corta cada una.</p>
+  </div>
+
+  <div class="sec cons">
+    <div class="sec-hd"><span class="sec-n">!</span><span class="sec-t">Consecuencias</span></div>
+    <p class="nota" style="margin-bottom:8px;">Buscad en el enlace de arriba y rellenad los tres recuadros.</p>
+    <div class="cons-grid">
+      <div class="cons-item ejemplo">
+        <div class="cons-cat">Económica — ejemplo</div>
+        <p>Empresas han perdido cientos de miles de euros en una sola transferencia hecha por un empleado engañado.</p>
+      </div>
+      <div class="cons-item vacio"><div class="cons-cat">Personal</div></div>
+      <div class="cons-item vacio"><div class="cons-cat">Laboral</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">4</span><span class="sec-t">Un caso real o noticia reciente</span></div>
+    <div class="caso-box">
+      <div class="caso-label">Ejemplo del tipo de ataque — vosotros buscad uno concreto</div>
+      <p>Un empleado recibe un WhatsApp del número de su director (suplantado): "Necesito una transferencia urgente de 8.000€ para cerrar un contrato hoy. Es confidencial, no lo comentes con nadie." <strong>Urgencia + autoridad + secreto.</strong> Este es el patrón habitual — buscad un caso real con nombre, empresa y fecha para presentarlo a la clase.</p>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <div class="sec din">
+    <div class="sec-hd"><span class="sec-n">★</span><span class="sec-t">Dinámica: Identifica la técnica</span></div>
+    <div class="din-box">
+      <div class="paso"><span class="paso-n">1</span><span>Preparad <strong>4 mensajes o situaciones reales</strong> donde se use una técnica de manipulación.</span></div>
+      <div class="paso"><span class="paso-n">2</span><span>Proyectad cada uno. La clase identifica: <em>"¿Qué técnica usa? ¿Urgencia, autoridad, miedo...?"</em></span></div>
+      <div class="paso"><span class="paso-n">3</span><span>Confirmáis y explicáis <strong>por qué funciona psicológicamente</strong> — no solo "es urgencia" sino por qué la urgencia nos hace actuar sin pensar.</span></div>
+    </div>
+  </div>
+
+  <div class="sec deb">
+    <div class="sec-hd"><span class="sec-n">?</span><span class="sec-t">Pregunta de debate</span></div>
+    <div class="deb-opciones">
+      <div class="opcion"><div class="op-label">Opción A</div>¿Crees que cualquier persona puede caer en ingeniería social, o solo las que "no saben de tecnología"?</div>
+      <div class="opcion"><div class="op-label">Opción B</div>La publicidad usa las mismas técnicas — urgencia, escasez, autoridad. ¿Dónde está el límite entre persuasión y manipulación?</div>
+      <div class="opcion"><div class="op-label">Opción C</div>¿Debería enseñarse detección de manipulación desde primaria?</div>
+    </div>
+    <div class="opcion-propia"><strong>O cread vuestra propia:</strong> un dilema sin respuesta correcta que cualquiera pueda contestar sin saber del tema.</div>
+  </div>
+</div>
+
+<!-- ===================== 07 DEEPFAKE ===================== -->
+<div class="tab-content" id="t6">
+  <div class="grupo-header">
+    <div class="grupo-num">07</div>
+    <div class="grupo-info">
+      <h2>Deepfake y fake news</h2>
+      <div class="sub">Ya no puedes creer lo que ves</div>
+      <span class="badge b-info">Control de la información</span>
+    </div>
+  </div>
+
+  <div class="recursos-bloque">
+    <div class="rec-label">Recursos para preparar la presentación</div>
+    <a href="https://www.incibe.es/menores/blog/alfabetizacion-mediatica-para-proteger-los-y-las-menores-frente-los-deepfakes" target="_blank">↗ incibe.es — deepfakes y menores: cómo identificarlos y actuar</a>
+    <a href="https://maldita.es" target="_blank">↗ maldita.es — verificación de noticias y bulos (con ejemplos reales)</a>
+    <a href="https://www.newtral.es" target="_blank">↗ newtral.es — fact-checking en español</a>
+  </div>
+
+  <div class="sec hl">
+    <div class="sec-hd"><span class="sec-n">1</span><span class="sec-t">¿Qué es exactamente?</span></div>
+    <div class="def-box">
+      Un <strong>deepfake</strong> es un vídeo, imagen o audio generado o manipulado con inteligencia artificial para hacer creer que alguien dijo o hizo algo que nunca ocurrió. Hace cinco años requería equipos potentes y semanas de trabajo — hoy se hace con apps gratuitas en minutos. Las <strong>fake news</strong> son noticias falsas diseñadas para parecer reales y difundirse rápido. Los <strong>filtros engañosos</strong> alteran la realidad de la imagen de forma tan natural que se presentan como "sin filtro".
+    </div>
+    <div class="tarea-box">
+      <div class="tarea-label">Vuestra tarea</div>
+      <p>Explicad qué es con vuestras palabras, como si se lo contarais a alguien que no sabe nada de tecnología. Explicad también la diferencia entre deepfake, fake news y filtros engañosos.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">2</span><span class="sec-t">¿Cómo detectarlo?</span></div>
+    <p class="nota">Buscad la información en los enlaces de arriba. Dos listas separadas: señales visuales para detectar deepfakes y pasos para verificar una fake news antes de compartirla.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">3</span><span class="sec-t">¿Cómo protegerse?</span></div>
+    <p class="nota">Buscad la información en los enlaces de arriba. Lista de entre 5 y 10 reglas. Frase corta cada una.</p>
+  </div>
+
+  <div class="sec cons">
+    <div class="sec-hd"><span class="sec-n">!</span><span class="sec-t">Consecuencias</span></div>
+    <p class="nota" style="margin-bottom:8px;">Buscad en los enlaces de arriba y rellenad los tres recuadros.</p>
+    <div class="cons-grid">
+      <div class="cons-item ejemplo">
+        <div class="cons-cat">Personal — ejemplo</div>
+        <p>Deepfakes sexuales de personas reales destruyen reputaciones. En España ya hay sentencias judiciales en 2024.</p>
+      </div>
+      <div class="cons-item vacio"><div class="cons-cat">Social</div></div>
+      <div class="cons-item vacio"><div class="cons-cat">Legal</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">4</span><span class="sec-t">Un caso real o noticia reciente</span></div>
+    <p>Buscad un caso reciente en España de <strong>deepfake sexual</strong> (hay sentencias de 2024 muy documentadas) o un <strong>bulo viral</strong> verificado por Maldita.es. También podéis usar el audio deepfake de un político que causó alarma internacional — hay varios ejemplos recientes.</p>
+  </div>
+
+  <hr class="div">
+
+  <div class="sec din">
+    <div class="sec-hd"><span class="sec-n">★</span><span class="sec-t">Dinámica: ¿Verdad o mentira?</span></div>
+    <div class="din-box">
+      <div class="paso"><span class="paso-n">1</span><span>Preparad una galería de <strong>6-8 imágenes o titulares</strong>: mezcla de reales y falsos. Maldita.es tiene ejemplos verificados.</span></div>
+      <div class="paso"><span class="paso-n">2</span><span>Cada imagen se proyecta <strong>15 segundos</strong>. La clase vota: ¿real o falso?</span></div>
+      <div class="paso"><span class="paso-n">3</span><span>Revelad la respuesta y señalad qué lo delata — o por qué es tan difícil saberlo.</span></div>
+    </div>
+  </div>
+
+  <div class="sec deb">
+    <div class="sec-hd"><span class="sec-n">?</span><span class="sec-t">Pregunta de debate</span></div>
+    <div class="deb-opciones">
+      <div class="opcion"><div class="op-label">Opción A</div>¿Debería ser ilegal crear un deepfake de cualquier persona, aunque sea una broma entre amigos?</div>
+      <div class="opcion"><div class="op-label">Opción B</div>Si las redes sociales pudieran detectar y eliminar deepfakes automáticamente, ¿deberían hacerlo aunque eso implique revisar todo lo que subimos?</div>
+      <div class="opcion"><div class="op-label">Opción C</div>¿Crees que en 10 años será imposible saber si un vídeo es real? ¿Qué consecuencias tendría eso?</div>
+    </div>
+    <div class="opcion-propia"><strong>O cread vuestra propia:</strong> un dilema sin respuesta correcta que cualquiera pueda contestar sin saber del tema.</div>
+  </div>
+</div>
+
+<!-- ===================== 08 PRIVACIDAD ===================== -->
+<div class="tab-content" id="t7">
+  <div class="grupo-header">
+    <div class="grupo-num">08</div>
+    <div class="grupo-info">
+      <h2>Privacidad y huella digital</h2>
+      <div class="sub">¿Qué rastro dejas y quién lo usa?</div>
+      <span class="badge b-info">Control de la información</span>
+    </div>
+  </div>
+
+  <div class="recursos-bloque">
+    <div class="rec-label">Recursos para preparar la presentación</div>
+    <a href="https://www.incibe.es/menores/tematicas/privacidad" target="_blank">↗ incibe.es — privacidad, identidad digital y reputación online</a>
+    <a href="https://www.incibe.es/ciudadania/tematicas/privacidad" target="_blank">↗ incibe.es — privacidad para ciudadanos (cookies, huella digital)</a>
+  </div>
+
+  <div class="sec hl">
+    <div class="sec-hd"><span class="sec-n">1</span><span class="sec-t">¿Qué es exactamente?</span></div>
+    <div class="def-box">
+      La <strong>huella digital</strong> es el rastro de datos que dejamos cada vez que usamos internet: búsquedas, likes, compras, ubicaciones, tiempo que pasamos viendo cada contenido. Es permanente y casi imposible de borrar del todo. Las <strong>cookies</strong> son pequeños archivos que las webs guardan en tu dispositivo para recordar quién eres. Las hay útiles y las hay de rastreo: sirven para seguirte por toda la red y construir un perfil detallado de ti que se vende a anunciantes. La información que generamos online puede ser consciente, inconsciente o automática — sin que ni siquiera lo sepamos.
+    </div>
+    <div class="tarea-box">
+      <div class="tarea-label">Vuestra tarea</div>
+      <p>Explicad qué es con vuestras palabras, como si se lo contarais a alguien que no sabe nada de tecnología. Explicad también la diferencia entre publicación consciente, inconsciente y automática con ejemplos propios.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">2</span><span class="sec-t">¿Cómo detectarlo?</span></div>
+    <p class="nota">Buscad la información en los enlaces de arriba. Lista de situaciones en las que notamos que "nos están siguiendo" online o que información nuestra llegó donde no queríamos.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">3</span><span class="sec-t">¿Cómo protegerse?</span></div>
+    <p class="nota">Buscad la información en los enlaces de arriba. Lista de entre 5 y 10 reglas. Frase corta cada una.</p>
+  </div>
+
+  <div class="sec cons">
+    <div class="sec-hd"><span class="sec-n">!</span><span class="sec-t">Consecuencias</span></div>
+    <p class="nota" style="margin-bottom:8px;">Buscad en los enlaces de arriba y rellenad los tres recuadros.</p>
+    <div class="cons-grid">
+      <div class="cons-item ejemplo">
+        <div class="cons-cat">Social — ejemplo</div>
+        <p>Cambridge Analytica usó datos de 87 millones de usuarios de Facebook para influir en elecciones de varios países.</p>
+      </div>
+      <div class="cons-item vacio"><div class="cons-cat">Personal</div></div>
+      <div class="cons-item vacio"><div class="cons-cat">Legal</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-n">4</span><span class="sec-t">Un caso real o noticia reciente</span></div>
+    <p>El caso <strong>Cambridge Analytica (2018)</strong> es el más conocido sobre uso masivo de datos personales. Más reciente: buscad multas a empresas por uso ilegal de cookies bajo el <strong>RGPD europeo</strong> — hay casos en España en los últimos años.</p>
+  </div>
+
+  <hr class="div">
+
+  <div class="sec din">
+    <div class="sec-hd"><span class="sec-n">★</span><span class="sec-t">Dinámica: Las cookies en acción + historial de Maps</span></div>
+    <div class="din-box">
+      <div class="paso"><span class="paso-n">1</span><span><strong>Cookies:</strong> preparad vuestra propia historia en 3-4 capturas — un recorrido por internet donde la publicidad empieza a "seguir" al usuario. Inventad vosotros las webs y el producto. Narrad qué pasa técnicamente entre captura y captura.</span></div>
+      <div class="paso"><span class="paso-n">2</span><span><strong>Huella:</strong> pedid a la clase que abran Google Maps → foto de perfil → "Tu cronología". <em>"¿Sabíais que Google guardaba dónde habéis estado? ¿Os parece útil o os incomoda?"</em></span></div>
+    </div>
+    <div class="nota-docente"><strong>Nota docente:</strong> Esta dinámica cierra la SA de forma natural. Después de 8 presentaciones sobre amenazas digitales, la clase termina mirando sus propios móviles con ojos nuevos.</div>
+  </div>
+
+  <div class="sec deb">
+    <div class="sec-hd"><span class="sec-n">?</span><span class="sec-t">Pregunta de debate</span></div>
+    <div class="deb-opciones">
+      <div class="opcion"><div class="op-label">Opción A</div>¿Cambiarías tus hábitos en redes sociales si supieras exactamente qué datos recopilan y a quién se los venden?</div>
+      <div class="opcion"><div class="op-label">Opción B</div>¿Preferirías pagar por usar Instagram o TikTok, o seguir pagando con tus datos?</div>
+      <div class="opcion"><div class="op-label">Opción C</div>¿Crees que tienes derecho a que Google o Meta borren todo lo que saben de ti si lo pides?</div>
+    </div>
+    <div class="opcion-propia"><strong>O cread vuestra propia:</strong> un dilema sin respuesta correcta que cualquiera pueda contestar sin saber del tema.</div>
+  </div>
+</div>
+
+<script>
+function show(n) {
+  document.querySelectorAll('.tab-content').forEach((t,i) => t.classList.toggle('active', i===n));
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i===n));
+}
+</script>
+</body>
+</html>
